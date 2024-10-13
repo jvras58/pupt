@@ -9,8 +9,9 @@ yarn-error.log*
 node_modules/
 jspm_packages/
 
-# diretorio screanshot
+# diretorio screanshot e arquivos .html
 screenshots/
+*.html
 
 # Diretórios de build
 dist/
