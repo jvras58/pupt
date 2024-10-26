@@ -4,7 +4,7 @@ import path from 'path';
 
 (async () => {
   const browser = await puppeteer.launch({
-    headless: true, // Defina como false para ver o navegador em ação
+    headless: true, // Defina como false para ver o navegador em ação (útil para depuração)
     args: ['--no-sandbox', '--disable-setuid-sandbox']
   });
   const page = await browser.newPage();
