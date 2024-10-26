@@ -1,11 +1,10 @@
-const puppeteer = require('puppeteer');
-const fs = require('fs');
-const path = require('path');
+import puppeteer from "puppeteer";
+import fs from 'fs';
+import path from 'path';
 
 (async () => {
   const browser = await puppeteer.launch({
-    executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || '/usr/bin/chromium',
-    headless: false,
+    headless: true,
     args: ['--no-sandbox', '--disable-setuid-sandbox']
   });
   const page = await browser.newPage();
@@ -19,7 +18,7 @@ const path = require('path');
 
   await page.waitForSelector('#search');
 
-  const screenshotsDir = path.resolve(__dirname, 'screenshots');
+  const screenshotsDir = path.resolve(process.cwd(), 'screenshots');
   if (!fs.existsSync(screenshotsDir)) {
     fs.mkdirSync(screenshotsDir);
   }

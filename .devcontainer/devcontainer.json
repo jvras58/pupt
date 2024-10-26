@@ -8,9 +8,10 @@
             "extensions": [
                 "oderwat.indent-rainbow",
                 "tamasfe.even-better-toml",
-                "Gruntfuggly.todo-tree"
+                "Gruntfuggly.todo-tree",
+                "ms-vscode.makefile-tools"
             ]
         }
     },
-    "postCreateCommand": "make"
+    "postCreateCommand": "npm install && make scrapper"
 }
