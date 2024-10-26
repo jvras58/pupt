@@ -13,5 +13,5 @@
             ]
         }
     },
-    "postCreateCommand": "npm install && make scrapper"
+    "postCreateCommand": "npm install"
 }

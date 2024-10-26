@@ -24,4 +24,4 @@ RUN npm ci --only=production
 COPY . .
 
 
-CMD ["node", "scraper.js"]
+CMD ["node", "scraping.js"]
