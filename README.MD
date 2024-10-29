@@ -21,10 +21,26 @@ O projeto foi criado em JavaScript (mas pode ser facilmente convertido para Type
 /
 ├─📁 .devcontainer     -> Configurações do ambiente de desenvolvimento (Devcontainer)
 ├─📁 docs              -> Artefatos de documentação
-├─🇯 scraping.js       -> Ponto de entrada da aplicação
-├─📄 .gitignore        -> Arquivos e pastas ignorados pelo Git
-├─📄 Makefile          -> Automação de tarefas
-├─📄 README.md         -> Este arquivo
+├──📁src
+│   ├─🇯index.js            -> Arquivo principal para iniciar o scraping
+│       ...
+│   ├─📁scraping
+│      ├─🇯scraper.js       ->  Funções de scraping específicas (e.g., pesquisa no Google)
+│       ...
+│   ├─📁utils             
+│      ├─🇯fileManager.js   -> Funções para salvar capturas de tela, dados, etc.
+│      ├─🇯logger.js        -> Logs e tratamento de erros
+│       ...
+├──📁 Config
+│   ├─🇯browser.js          -> configurações do navegador
+│   ├─🇯config.js           -> configurações do Puppeteer
+│       ...
+├─📁screenshots             -> Pasta onde as capturas de tela serão salvas
+├─📁data                    -> Pasta para salvar dados coletados (Não implementado)
+├── package.json            -> Configurações e dependências do projeto
+├─📄 .gitignore             -> Arquivos e pastas ignorados pelo Git
+├─📄 Makefile               -> Automação de tarefas
+└─📄 README.md              -> Documentação do projeto (Este arquivo)
 ```
 
 ## 🛠️ Configuração do Ambiente de Desenvolvimento
@@ -96,4 +112,27 @@ Se você preferir configurar e executar o projeto sem usar o devcontainer, siga 
 
 ### Personalização
 
-Você pode personalizar o script de scraping editando o arquivo `scraping.js`. Por exemplo, você pode alterar o alvo do scraping, ajustar opções de navegação ou definir os dados a serem extraídos. Se preferir, você também pode aplicar uma arquitetura mais limpa, organizando o código em pastas e criando múltiplos arquivos `scraping.js` para diferentes tarefas de scraping.
+O projeto está estruturado para facilitar a organização e expansão do código de scraping com o Puppeteer. Abaixo, indicamos os principais pontos onde você pode fazer ajustes e adicionar funcionalidades.
+
+#### 1. Configurações Gerais
+
+- As configurações principais do Puppeteer e as URLs de destino estão centralizadas no arquivo `src/config/config.js`. Você pode ajustar as opções do navegador, URLs e seletores aqui. Por exemplo:
+  - **Modo de exibição**: Para ver o navegador em ação, altere a opção `headless` para `false` no objeto `PUPPETEER_OPTIONS`.
+  - **URLs**: Modifique ou adicione URLs no objeto `URLS` para configurar novos destinos de scraping.
+
+#### 2. Scripts de Scraping
+
+- A lógica de scraping específica é definida no arquivo `src/scraping/scraper.js`. Cada função dentro deste arquivo realiza uma tarefa específica de scraping. Por exemplo:
+  - **Função `performGoogleSearch`**: Realiza uma pesquisa no Google. Você pode duplicar e modificar essa função para incluir novos fluxos de scraping para outras páginas ou funcionalidades dentro do Google.
+
+#### 3. Gerenciamento de Arquivos e Logs
+
+- No diretório `src/utils`, você encontrará utilitários para salvar capturas de tela e gerenciar logs.
+  - **Capturas de Tela**: A função `saveScreenshot` no arquivo `fileManager.js` salva capturas de tela na pasta `screenshots`. Para modificar o nome ou o local dos arquivos, ajuste a função ou os valores no arquivo `config.js`.
+  - **Logs e Erros**: O `logger.js` oferece funções para centralizar logs de informações e erros, tornando o processo de depuração mais claro. Esses logs são acionados diretamente no `index.js`.
+
+#### 4. Expansão com Novas Tarefas
+
+- Para adicionar novos fluxos de scraping:
+  1. Crie uma nova função no arquivo `scraper.js` ou crie um novo módulo (arquivo) para uma tarefa específica.
+  2. Importe e chame as novas funções no `index.js` para orquestrar diferentes fluxos.
